@@ -1,0 +1,29 @@
+<div class="card card-primary p-3" *ngIf="item && item._id">
+    <button class="btn btn-default" (click)="goUp()">Up</button>
+
+    <span>{{ item.percent | percent }}</span>
+
+    <form action="javascript:void(0)">
+
+        <input name="title"
+            type="text"
+            [(ngModel)]="item.title"
+            [disabled]="saving"
+            class="form-control form-control-lg my-3" />
+
+        <textarea name="description"
+            id="description-field"
+            class="form-control"
+            [(ngModel)]="item.description"
+            [disabled]="saving"></textarea>
+
+        <button
+            class="btn btn-primary"
+            (click)="save()"
+            [disabled]="saving">
+            Save
+        </button>
+
+    </form>
+
+</div>

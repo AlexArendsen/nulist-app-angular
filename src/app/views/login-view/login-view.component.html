@@ -1,0 +1,30 @@
+<div class="jumbotron">
+  <h1>Welcome to NuList!</h1>
+  <p class="lead">Please log in below</p>
+</div>
+
+<div *ngIf="action === 'login'">
+  <app-login-form></app-login-form>
+
+  <hr>
+  <p>
+    <strong>New User?</strong>
+    <button class="btn btn-secondary float-right" (click)="action = 'registration'">
+      Click Here To Sign Up!
+    </button>
+  </p>
+
+</div>
+
+<div *ngIf="action === 'registration'">
+  <app-registration-form></app-registration-form>
+
+  <hr>
+  <p>
+    <strong>Already a User?</strong>
+    <button class="btn btn-secondary float-right" (click)="action = 'login'">
+      Click Here To Log In
+    </button>
+  </p>
+
+</div>
