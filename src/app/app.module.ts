@@ -23,11 +23,11 @@ import { RegistrationFormComponent } from './components/registration-form/regist
 // Globally Provided Services
 import { UserService } from './services/user.service';
 import { ItemService } from './services/item.service';
+import { ErrorService } from './services/error.service';
 
 // Other Stuff
 import { AppRoutes } from './app.routes';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { ErrorService } from './services/error.service';
+import { OutgoingInterceptor } from './interceptors/outgoing.interceptors';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,7 @@ import { ErrorService } from './services/error.service';
     UserService,
     ItemService,
     ErrorService,
-    { provide : HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
+    { provide : HTTP_INTERCEPTORS, useClass: OutgoingInterceptor, multi: true, },
   ],
   bootstrap: [AppComponent]
 })

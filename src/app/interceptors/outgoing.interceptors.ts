@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class OutgoingInterceptor implements HttpInterceptor {
 
     constructor(
         private users: UserService
@@ -19,6 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 'Accept': 'application/json',
                 'Authorization': `${this.users.getToken()}`,
             },
+            url: `/api${req.url}`
         });
 
         return next.handle(req);
