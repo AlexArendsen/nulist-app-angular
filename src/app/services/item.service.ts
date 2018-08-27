@@ -32,7 +32,7 @@ export class ItemService {
     this.created.subscribe(i => {
       this.items.push(i);
       this.connectParentsWithChildren();
-      this.calculateItemPercentages();
+      this.calculateItemPercentages(true);
     });
 
     this.updated.pipe(
