@@ -6,8 +6,11 @@
  
   <div class="col-lg-8 col-md-8 col-sm-9 col-9 clickable" (click)="gotoItem(c)">
     <strong>{{ c.title }}</strong>
+    <!--<span class="mx-2" *ngIf="c.children && c.children.length">+{{ c.children.length }}</span>-->
+    <!--<span class="mx-2">{{ c.percent | percent }}</span>-->
     <span *ngIf="c.description">&emsp;{{ c.description }}</span>
     <br>
+
     <span class="text-muted">
       <span *ngIf="c.children && c.children.length">
         {{ c.children.length }} {{ c.children.length == 1 ? 'child' : 'children' }}
@@ -15,6 +18,7 @@
       </span>
       {{ c.percent | percent }} complete
     </span>
+
   </div>
 
   <div class="col-lg-3 col-md-3 col-sm-12">

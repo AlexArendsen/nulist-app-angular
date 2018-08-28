@@ -1,0 +1,15 @@
+<button class="btn btn-warning" (click)="showMoveModal(template)">Move Item</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title">Move Item</h4>
+  </div>
+  <div class="modal-body">
+
+    <p>Moving {{ source.title }}. Please select a destination.</p>
+
+    <app-item-picker-form
+      (pick)="doMove($event)"
+    ></app-item-picker-form>
+  </div>
+</ng-template>

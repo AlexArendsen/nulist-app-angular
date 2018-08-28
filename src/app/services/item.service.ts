@@ -16,11 +16,13 @@ export class ItemService {
   // TODO -- this should definitely be private
   public items: ItemVM[] = [];
   private loading: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  private lastUsedToken: string;
 
   public created: Subject<ItemVM> = new Subject();
   public updated: Subject<ItemVM> = new Subject();
   public checked: Subject<ItemVM> = new Subject();
   public unchecked: Subject<ItemVM> = new Subject();
+  public moved: Subject<ItemVM> = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -36,20 +38,24 @@ export class ItemService {
     });
 
     this.updated.pipe(
-      map(i => ({updated: i, existing: this.items.find(t => t._id == i._id)}))
+      map(i => ({updated: i, existing: this.items.find(t => t._id == i._id)})),
+      tap(console.log)
     ).subscribe(pair => { Object.assign(pair.existing, pair.updated); this.calculateItemPercentages(true)});
+
     this.checked.subscribe(i => this.calculateItemPercentages(true));
     this.unchecked.subscribe(i => this.calculateItemPercentages(true));
+    this.moved.subscribe(i => this.reload());
   }
 
+  private reload() { this.load(this.lastUsedToken); }
+
   private load(token) {
+    this.lastUsedToken = token;
     this.http.get<Item[]>('/items').subscribe(list => {
       this.items = list.map(i => new ItemVM(i));
-
+      this.loading.next(false);
       this.connectParentsWithChildren();
       this.calculateItemPercentages();
-
-      this.loading.next(false);
     });
   }
 
@@ -90,6 +96,8 @@ export class ItemService {
       ));
   }
 
+  getAll(): Observable<ItemVM[]> { return ObservableOf(this.items); }
+
   create(model: Item): Observable<Item> {
     if (!model.title) {
       this.error.shout('Could not create item', 'Item title may not be empty');
@@ -123,5 +131,11 @@ export class ItemService {
   }
 
   delete(id: string): Observable<Item> { return this.http.delete<Item>(`/item/${id}`); }
+
+  move(subject: Item, newParent: Item): Observable<Item> {
+    return this.http.put<Item>('/item', { _id: subject._id, parent_id: newParent._id }).pipe(
+      tap(item => this.moved.next(new ItemVM(item)))
+    );
+  }
 
 }
