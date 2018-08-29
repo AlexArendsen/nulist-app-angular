@@ -55,7 +55,7 @@ export class ItemService {
       this.items = list.map(i => new ItemVM(i));
       this.loading.next(false);
       this.connectParentsWithChildren();
-      this.calculateItemPercentages();
+      this.calculateItemPercentages(true);
     });
   }
 
