@@ -81,7 +81,7 @@ export class ItemService {
     this.items.filter(i => !i.parent_id).forEach(setPercentage);
   }
 
-  get(id: string): Observable<Item> {
+  get(id: string): Observable<ItemVM> {
     return this.loading.pipe(
       filter(l => l == false), map(x => this.items.find(i => i._id == id))
     );

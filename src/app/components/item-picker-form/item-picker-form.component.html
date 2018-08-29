@@ -1,11 +1,11 @@
 <app-item-picker-item
     *ngFor="let i of topLevelItems"
     [item]="i"
-    (pick)="select($event)">
+    (pick)="onSelect($event)">
 </app-item-picker-item>
 
 <div class="btn-toolbar float-right">
-    <button class="btn btn-primary" (click)="submit()">Submit</button>
+    <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
 </div>
 
 <p>
