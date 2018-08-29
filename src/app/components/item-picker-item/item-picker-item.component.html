@@ -1,7 +1,7 @@
 <div>
   <strong class="expander" (click)="toggleExpand()" [class.expanded]="expanded">▸</strong>
   <a href="javascript:void(0)" (click)="select(item)">{{ item.title }}</a>
-  <span *ngIf="!expanded && item.children">(+{{ item.children.length }})</span>
+  <span *ngIf="!expanded && item.children" class="ml-1">(+{{ item.children.length }})</span>
 </div>
 
 <div class="ml-3" *ngIf="expanded && item.children && item.children.length">
