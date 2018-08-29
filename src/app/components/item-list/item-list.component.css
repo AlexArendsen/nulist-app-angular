@@ -1,11 +1,5 @@
-.item-row {
-    border: dashed rgba(0,0,0,0.2);
-    border-width: 1px 0 0 0;
-    padding: 8px 0;
-}
-
 .checkbox-column {
-    text-align: center;
+    text-align: right;
 }
 
 .clickable {
