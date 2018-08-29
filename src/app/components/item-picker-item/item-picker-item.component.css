@@ -1,0 +1,16 @@
+.expander {
+    transition-property: transform;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    display: inline-block;
+    padding: 1px 8px 1px 0;
+    cursor: pointer;
+
+    /* Shifts element center to center of arrow so rotation looks better */
+    border-left: solid transparent 6px;
+    margin-left: -6px;
+}
+
+.expander.expanded {
+    transform: rotateZ(0.25turn);
+}

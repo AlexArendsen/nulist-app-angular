@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Item } from '../../models/item.model';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-outline-view',
@@ -7,9 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OutlineViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private  navigate: NavigationService
+  ) { }
 
   ngOnInit() {
+  }
+
+  goToItem(item: Item) {
+    this.navigate.toItem(item._id);
   }
 
 }

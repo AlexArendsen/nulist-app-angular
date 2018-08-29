@@ -14,6 +14,7 @@ export class ItemPickerFormComponent implements OnInit {
   //@Input() root: Item;
 
   @Output() pick: EventEmitter<Item> = new EventEmitter<Item>();
+  @Output() select: EventEmitter<Item> = new EventEmitter<Item>();
 
   private allItems: ItemVM[];
   private topLevelItems: ItemVM[];
@@ -30,8 +31,13 @@ export class ItemPickerFormComponent implements OnInit {
     this.topLevelItems = this.allItems.filter(i => !i.parent_id);
   }
 
-  select(item: Item) { this.selectedItem = item; }
+  onSelect(item: Item) {
+    this.selectedItem = item;
+    this.select.emit(item);
+  }
 
-  submit() { this.pick.emit(this.selectedItem); }
+  onSubmit() {
+    this.pick.emit(this.selectedItem);
+  }
 
 }
