@@ -10,16 +10,13 @@
       <strong class="mr-2">{{ c.title }}</strong>
       <div class="d-inline-block">
         <span class="mr-2 text-muted" *ngIf="c.children && c.children.length">{{ c.children.length }} {{ c.children.length == 1 ? 'child' : 'children' }}</span>
-        <span class="text-muted">{{ c.percent | percent }} complete</span>
       </div>
       <div *ngIf="c.description">{{ c.description }}</div>
 
     </div>
 
     <div class="col-lg-3 col-md-3 col-sm-12">
-      <div class="progress">
-        <div class="progress-bar" [style.width]="100*c.percent + '%'"></div>
-      </div>
+      <app-item-progress-bar [item]="c"></app-item-progress-bar>
     </div>
 
   </div>

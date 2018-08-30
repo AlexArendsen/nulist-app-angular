@@ -1,0 +1,10 @@
+.v-separator {
+    display: inline-block;
+    background-color: rgba(0,0,0,0.2);
+    width: 1px;
+    margin: 2px 8px;
+}
+
+.item-description {
+    min-height: 5em;
+}

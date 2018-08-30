@@ -35,6 +35,7 @@ import { AppRoutes } from './app.routes';
 import { OutgoingInterceptor } from './interceptors/outgoing.interceptors';
 import { NavigationService } from './services/navigation.service';
 import { SiteFooterComponent } from './components/site-footer/site-footer.component';
+import { ItemProgressBarComponent } from './components/item-progress-bar/item-progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { SiteFooterComponent } from './components/site-footer/site-footer.compon
     ItemPickerItemComponent,
     OutlineViewComponent,
     ItemMoveButtonComponent,
-    SiteFooterComponent
+    SiteFooterComponent,
+    ItemProgressBarComponent
   ],
 
   imports: [

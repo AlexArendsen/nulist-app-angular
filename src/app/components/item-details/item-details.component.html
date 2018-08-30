@@ -1,31 +1,61 @@
-<div class="card card-primary p-3" *ngIf="item && item._id">
-    <button class="btn btn-default" (click)="goUp()">Up</button>
+<div *ngIf="item && item._id">
 
-    <span>{{ item.percent | percent }}</span>
+    <button class="btn btn-default" (click)="goUp()">
+        Up
+        <i class="fas fa-level-up-alt"></i>
+    </button>
 
-    <form action="javascript:void(0)">
+    <div class="clearfix bg-light mt-2 p-3">
 
-        <input name="title"
-            type="text"
-            [(ngModel)]="item.title"
-            [disabled]="saving"
-            class="form-control form-control-lg my-3" />
+        <form action="javascript:void(0)">
 
-        <textarea name="description"
-            id="description-field"
-            class="form-control"
-            [(ngModel)]="item.description"
-            [disabled]="saving"></textarea>
+            <input name="title"
+                type="text"
+                [(ngModel)]="item.title"
+                [disabled]="saving"
+                class="form-control form-control-lg my-3" />
 
-        <button
-            class="btn btn-primary"
-            (click)="save()"
-            [disabled]="saving">
-            Save
-        </button>
+            <textarea name="description"
+                id="description-field"
+                class="form-control item-description"
+                [(ngModel)]="item.description"
+                [disabled]="saving"></textarea>
 
-        <app-item-move-button [source]="item"></app-item-move-button>
+            <div class="row mt-2">
+                <div class="col-12 col-md-6">
+                    <div class="mb-2">
+                        <app-item-progress-bar [item]="item"></app-item-progress-bar>
+                    </div>
+                </div>
 
-    </form>
+                <div class="col-12 col-md-6">
+                    <div class="btn-toolbar float-right">
+
+                        <button class="btn btn-default mr-2"
+                            disabled="disabled">
+                            Delete
+                        </button>
+
+                        <app-item-move-button [source]="item">Move</app-item-move-button>
+
+                        <div class="v-separator"></div>
+
+                        <button
+                            class="btn btn-primary"
+                            (click)="save()"
+                            [disabled]="saving">
+                            <i class="fas fa-save"></i>
+                            Save
+                        </button>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>

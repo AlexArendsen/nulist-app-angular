@@ -1,4 +1,6 @@
-<button class="btn btn-warning" (click)="showMoveModal(template)">Move Item</button>
+<button class="btn btn-default" (click)="showMoveModal(template)">
+  <ng-content></ng-content>
+</button>
 
 <ng-template #template>
   <div class="modal-header">
