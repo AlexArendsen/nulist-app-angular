@@ -12,12 +12,25 @@ import { ErrorService } from './error.service';
 })
 export class UserService {
 
+  public LOCAL_STORAGE_TOKEN_NAME = 'nulist-jwt';
   public token: BehaviorSubject<string> = new BehaviorSubject(null);
 
   constructor(
     private http: HttpClient,
     private error: ErrorService
-  ) { }
+  ) {
+    this.restoreSession();
+
+    this.token.subscribe(token => (token)
+      ? localStorage.setItem(this.LOCAL_STORAGE_TOKEN_NAME, token)
+      : localStorage.removeItem(this.LOCAL_STORAGE_TOKEN_NAME)
+    );
+  }
+
+  private restoreSession() {
+    const token = localStorage.getItem(this.LOCAL_STORAGE_TOKEN_NAME)
+    if (token) this.token.next(token);
+  }
 
   login(username: string, password: string): Observable<any> {
     return this.http.post('/login', {username, password}).pipe(
