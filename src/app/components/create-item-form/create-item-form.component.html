@@ -2,21 +2,23 @@
 
   <div class="row">
 
-    <div class="col-1"></div>
+    <div class="col-1 d-none d-sm-block"></div>
 
-    <div class="col-9">
+    <div class="col-9 col-sm-7">
       <input type="text" id="title-field" name="title" class="form-control" [(ngModel)]="model.title" placeholder="Title" />
     </div>
 
-    <div class="col-2">
+    <div class="col-3 col-sm-2">
       <button
         type="submit"
-        class="btn btn-success"
+        class="btn btn-success form-control"
         (click)="create()"
         [disabled]="creating">
         Add
       </button>
     </div>
+
+    <div class="col-1 d-none d-sm-block"></div>
 
   </div>
 
