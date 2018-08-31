@@ -36,6 +36,7 @@ import { OutgoingInterceptor } from './interceptors/outgoing.interceptors';
 import { NavigationService } from './services/navigation.service';
 import { SiteFooterComponent } from './components/site-footer/site-footer.component';
 import { ItemProgressBarComponent } from './components/item-progress-bar/item-progress-bar.component';
+import { ItemDeleteButtonComponent } from './components/item-delete-button/item-delete-button.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ItemProgressBarComponent } from './components/item-progress-bar/item-pr
     OutlineViewComponent,
     ItemMoveButtonComponent,
     SiteFooterComponent,
-    ItemProgressBarComponent
+    ItemProgressBarComponent,
+    ItemDeleteButtonComponent
   ],
 
   imports: [

@@ -20,6 +20,7 @@ export class ItemService {
 
   public created: Subject<ItemVM> = new Subject();
   public updated: Subject<ItemVM> = new Subject();
+  public deleted: Subject<ItemVM> = new Subject();
   public checked: Subject<ItemVM> = new Subject();
   public unchecked: Subject<ItemVM> = new Subject();
   public moved: Subject<ItemVM> = new Subject();
@@ -38,9 +39,15 @@ export class ItemService {
     });
 
     this.updated.pipe(
-      map(i => ({updated: i, existing: this.items.find(t => t._id == i._id)})),
-      tap(console.log)
+      map(i => ({updated: i, existing: this.items.find(t => t._id == i._id)}))
     ).subscribe(pair => { Object.assign(pair.existing, pair.updated); this.calculateItemPercentages(true)});
+
+    this.deleted.subscribe(async deleted => {
+      const index = this.items.findIndex(i => i._id == deleted._id);
+      this.items.splice(index, 1);
+      this.connectParentsWithChildren();
+      this.calculateItemPercentages(true);
+    });
 
     this.checked.subscribe(i => this.calculateItemPercentages(true));
     this.unchecked.subscribe(i => this.calculateItemPercentages(true));
@@ -130,7 +137,11 @@ export class ItemService {
     );
   }
 
-  delete(id: string): Observable<Item> { return this.http.delete<Item>(`/item/${id}`); }
+  delete(id: string): Observable<Item> {
+    return this.http.delete<Item>(`/item/${id}`).pipe(
+      tap(i => this.deleted.next(new ItemVM(i)))
+    );
+  }
 
   move(subject: Item, newParent: Item): Observable<Item> {
     return this.http.put<Item>('/item', { _id: subject._id, parent_id: newParent._id }).pipe(

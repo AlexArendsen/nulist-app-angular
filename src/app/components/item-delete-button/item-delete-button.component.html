@@ -1,0 +1,34 @@
+<button
+  class="btn btn-default"
+  type="button"
+  (click)="showDeleteModal(template)">
+  <ng-content></ng-content>
+</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title">Delete Item</h4>
+  </div>
+  <div class="modal-body">
+
+    <p>Are you sure you want to delete {{ item.title }} and all of its children?</p>
+
+    <div class="btn-toobar float-right">
+
+      <button
+        class="btn btn-default"
+        (click)="hideDeleteModal()">
+        Cancel
+      </button>
+
+      <button
+        class="btn btn-danger ml-2"
+        (click)="doDelete()">
+        <i class="fas fa-trash"></i>
+        Yes, Delete
+      </button>
+
+    </div>
+
+  </div>
+</ng-template>
