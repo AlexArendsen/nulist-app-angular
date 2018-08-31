@@ -24,19 +24,19 @@ import { RegistrationFormComponent } from './components/registration-form/regist
 import { ItemPickerFormComponent } from './components/item-picker-form/item-picker-form.component';
 import { ItemPickerItemComponent } from './components/item-picker-item/item-picker-item.component';
 import { ItemMoveButtonComponent } from './components/item-move-button/item-move-button.component';
+import { SiteFooterComponent } from './components/site-footer/site-footer.component';
+import { ItemProgressBarComponent } from './components/item-progress-bar/item-progress-bar.component';
+import { ItemDeleteButtonComponent } from './components/item-delete-button/item-delete-button.component';
 
 // Globally Provided Services
 import { UserService } from './services/user.service';
 import { ItemService } from './services/item.service';
 import { ErrorService } from './services/error.service';
+import { NavigationService } from './services/navigation.service';
 
 // Other Stuff
 import { AppRoutes } from './app.routes';
 import { OutgoingInterceptor } from './interceptors/outgoing.interceptors';
-import { NavigationService } from './services/navigation.service';
-import { SiteFooterComponent } from './components/site-footer/site-footer.component';
-import { ItemProgressBarComponent } from './components/item-progress-bar/item-progress-bar.component';
-import { ItemDeleteButtonComponent } from './components/item-delete-button/item-delete-button.component';
 
 @NgModule({
   declarations: [
