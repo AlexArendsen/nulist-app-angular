@@ -14,6 +14,7 @@ export class ItemListComponent implements OnInit, OnChanges {
 
   @Input() parentId: string;
   children: Item[];
+  loading = true;
 
   constructor(
     private items: ItemService,
@@ -24,6 +25,9 @@ export class ItemListComponent implements OnInit, OnChanges {
     this.items.created.pipe(
       filter(i => i.parent_id == this.parentId)
     ).subscribe(i => this.children.push(i));
+
+    this.items.loading.subscribe(l => this.loading = l);
+
     this.load();
   }
 

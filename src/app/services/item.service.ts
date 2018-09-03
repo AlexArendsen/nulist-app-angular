@@ -15,7 +15,7 @@ export class ItemService {
 
   // TODO -- this should definitely be private
   public items: ItemVM[] = [];
-  private loading: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  public loading: BehaviorSubject<boolean> = new BehaviorSubject(true);
   private lastUsedToken: string;
 
   public created: Subject<ItemVM> = new Subject();

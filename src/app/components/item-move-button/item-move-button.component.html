@@ -17,8 +17,8 @@
       (pick)="doMove($event)"
     ></app-item-picker-form>
 
-    <div class="alert alert-info mt-2" *ngIf="moving">
-      <i class="fas fa-sync fa-spin"></i> Moving item...
+    <div class="mt-2">
+      <app-loading-bar [loading]="moving">Moving Item</app-loading-bar>
     </div>
 
   </div>
