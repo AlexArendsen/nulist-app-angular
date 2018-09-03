@@ -24,7 +24,7 @@
       <button
         class="btn btn-danger ml-2"
         (click)="doDelete()">
-        <i class="fas fa-trash"></i>
+        <i class="fas fa-trash fa-spin" *ngIf="deleting"></i>
         Yes, Delete
       </button>
 

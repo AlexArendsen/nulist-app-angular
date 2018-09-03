@@ -2,6 +2,8 @@ import { Component, OnInit, TemplateRef, Input } from '@angular/core';
 
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
+import { finalize } from 'rxjs/operators';
+
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item.model';
 
@@ -13,6 +15,7 @@ import { Item } from '../../models/item.model';
 export class ItemMoveButtonComponent implements OnInit {
 
   @Input() source: Item;
+  moving = false;
 
   modal: BsModalRef;
 
@@ -33,8 +36,10 @@ export class ItemMoveButtonComponent implements OnInit {
   }
 
   doMove(destination: Item) {
-    this.items.move(this.source, destination)
-      .subscribe(x => this.hideMoveModal());
+    this.moving = true;
+    this.items.move(this.source, destination).pipe(
+      finalize(() => this.moving = false)
+    ).subscribe(x => this.hideMoveModal());
   }
 
 }

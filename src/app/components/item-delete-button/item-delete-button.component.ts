@@ -15,6 +15,7 @@ import { NavigationService } from '../../services/navigation.service';
 export class ItemDeleteButtonComponent implements OnInit {
 
   @Input() item: Item;
+  deleting = false;
 
   modal: BsModalRef;
 
@@ -35,7 +36,10 @@ export class ItemDeleteButtonComponent implements OnInit {
   }
 
   doDelete() {
+    this.deleting = true;
+
     const onSuccess = () => {
+      this.deleting = false;
       this.hideDeleteModal();
       if (this.item.parent_id) this.navigate.toItem(this.item.parent_id);
       else this.navigate.toRoot();

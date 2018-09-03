@@ -13,5 +13,10 @@
     <app-item-picker-form
       (pick)="doMove($event)"
     ></app-item-picker-form>
+
+    <div class="alert alert-info mt-2" *ngIf="moving">
+      <i class="fas fa-sync fa-spin"></i> Moving item...
+    </div>
+
   </div>
 </ng-template>
