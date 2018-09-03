@@ -37,6 +37,7 @@ import { NavigationService } from './services/navigation.service';
 // Other Stuff
 import { AppRoutes } from './app.routes';
 import { OutgoingInterceptor } from './interceptors/outgoing.interceptors';
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { OutgoingInterceptor } from './interceptors/outgoing.interceptors';
     ErrorService,
     NavigationService,
     { provide : HTTP_INTERCEPTORS, useClass: OutgoingInterceptor, multi: true, },
+    { provide : HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true, },
   ],
 
   bootstrap: [AppComponent]
