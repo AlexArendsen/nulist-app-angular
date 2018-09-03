@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { MarkdownModule } from 'ngx-markdown';
 
 import { AppComponent } from './app.component';
 
@@ -67,6 +68,7 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
     FormsModule,
     ToasterModule.forRoot(),
     ModalModule.forRoot(),
+    MarkdownModule.forRoot(),
   ],
 
   providers: [

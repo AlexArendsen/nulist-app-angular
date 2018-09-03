@@ -11,7 +11,10 @@
       <div class="d-inline-block">
         <span class="mr-2 text-muted" *ngIf="c.children && c.children.length">{{ c.children.length }} {{ c.children.length == 1 ? 'child' : 'children' }}</span>
       </div>
-      <div *ngIf="c.description">{{ c.description }}</div>
+
+      <div class="description">
+        <markdown *ngIf="c.description">{{ c.description }}</markdown>
+      </div>
 
     </div>
 

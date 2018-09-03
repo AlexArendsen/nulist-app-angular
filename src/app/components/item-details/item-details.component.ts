@@ -16,6 +16,7 @@ export class ItemDetailsComponent implements OnInit, OnChanges {
   @Input() itemId: string;
   item: ItemVM;
   saving = false;
+  editingDescription = false;
 
   constructor(
     private items: ItemService,

@@ -13,13 +13,22 @@
                 type="text"
                 [(ngModel)]="item.title"
                 [disabled]="saving"
-                class="form-control form-control-lg my-3" />
+                class="form-control form-control-lg mt-3" />
+            
+            <small class="mb-3">
+                <a href="javascript:void(0)" (click)="editingDescription = !editingDescription">
+                    {{ editingDescription ? 'Show Description' : 'Edit Description' }}
+                </a>
+            </small>
 
             <textarea name="description"
                 id="description-field"
                 class="form-control item-description"
                 [(ngModel)]="item.description"
+                *ngIf="editingDescription"
                 [disabled]="saving"></textarea>
+            
+            <markdown [data]="item.description" *ngIf="!editingDescription"></markdown>
 
             <div class="row mt-2">
                 <div class="col-12 col-md-6">
