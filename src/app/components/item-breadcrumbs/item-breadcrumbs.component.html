@@ -1,0 +1,26 @@
+<nav>
+  <ol class="breadcrumb">
+
+    <li
+      class="breadcrumb-item"
+      [class.active]="!selected">
+      <a
+        href="javascript:void(0)"
+        (click)="toRoot()">
+        Root
+      </a>
+    </li>
+    
+    <li
+      *ngFor="let a of ancestors"
+      class="breadcrumb-item"
+      [class.active]="a._id == selected._id">
+      <a
+        href="javascript:void(0)"
+        (click)="toItem(a)"
+        *ngIf="a._id != selected._id"
+      >{{ a.title }}</a>
+      <span *ngIf="a._id == selected._id">{{ a.title }}</span>
+    </li>
+  </ol>
+</nav>

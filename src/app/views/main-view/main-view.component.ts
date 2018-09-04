@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Item } from '../../models/item.model';
 import { ActivatedRoute } from '@angular/router';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-main-view',
@@ -11,15 +12,14 @@ import { ActivatedRoute } from '@angular/router';
 export class MainViewComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute
+    private navigate: NavigationService
   ) { }
 
   selectedItemId: string;
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.selectedItemId = params.get('id')
-    });
+    this.navigate.selectedItem
+      .subscribe(item => this.selectedItemId = item ? item._id : null);
   }
 
 }

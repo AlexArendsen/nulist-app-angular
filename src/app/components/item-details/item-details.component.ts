@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { finalize } from 'rxjs/operators';
 
 import { ItemService } from '../../services/item.service';
 import { ItemVM } from '../../models/item.model';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-item-details',
@@ -20,7 +20,7 @@ export class ItemDetailsComponent implements OnInit, OnChanges {
 
   constructor(
     private items: ItemService,
-    private router: Router
+    private navigate: NavigationService
   ) { }
 
   ngOnInit() { this.load(); }
@@ -31,8 +31,7 @@ export class ItemDetailsComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) { this.load(); }
 
   goUp() {
-    if (!this.item.parent_id) { this.router.navigateByUrl('/items'); }
-    else { this.router.navigate(['/item', this.item.parent_id]); }
+    this.navigate.up();
   }
 
   save() {

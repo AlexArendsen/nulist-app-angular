@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
+import { tap } from 'rxjs/operators';
+
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
-import { Router } from '@angular/router';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,15 +13,18 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
+  authenticated = false;
   user: User;
 
   constructor(
     private users: UserService,
-    private router: Router
+    private navigate: NavigationService
   ) { }
 
   ngOnInit() {
-    this.users.token.subscribe(token => this.getUser());
+    this.users.token.pipe(
+      tap(token => this.authenticated = !!token)
+    ).subscribe(token => this.getUser());
   }
 
   getUser() {
@@ -26,5 +32,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() { this.users.logout(); }
+
+  toRoot() { this.navigate.toRoot(); }
+
+  toOutline() { this.navigate.toOutline(); }
 
 }

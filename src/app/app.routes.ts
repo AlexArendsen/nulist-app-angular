@@ -6,6 +6,6 @@ export const AppRoutes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginViewComponent },
     { path: 'items', component: MainViewComponent },
-    { path: 'item/:id', component: MainViewComponent },
+    { path: 'item/:itemid', component: MainViewComponent },
     { path: 'outline', component: OutlineViewComponent },
 ]

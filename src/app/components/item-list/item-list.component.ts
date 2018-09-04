@@ -3,7 +3,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { Item } from '../../models/item.model';
 import { ItemService } from '../../services/item.service';
 import { filter } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-item-list',
@@ -18,7 +18,7 @@ export class ItemListComponent implements OnInit, OnChanges {
 
   constructor(
     private items: ItemService,
-    private router: Router
+    private navigate: NavigationService
   ) { }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class ItemListComponent implements OnInit, OnChanges {
   }
 
   gotoItem(child: Item) {
-    this.router.navigate(['/item', child._id]);
+    this.navigate.toItem(child._id);
   }
 
 }

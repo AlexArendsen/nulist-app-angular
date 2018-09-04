@@ -29,6 +29,7 @@ import { SiteFooterComponent } from './components/site-footer/site-footer.compon
 import { ItemProgressBarComponent } from './components/item-progress-bar/item-progress-bar.component';
 import { ItemDeleteButtonComponent } from './components/item-delete-button/item-delete-button.component';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
+import { ItemBreadcrumbsComponent } from './components/item-breadcrumbs/item-breadcrumbs.component';
 
 // Globally Provided Services
 import { UserService } from './services/user.service';
@@ -59,7 +60,8 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
     SiteFooterComponent,
     ItemProgressBarComponent,
     ItemDeleteButtonComponent,
-    LoadingBarComponent
+    LoadingBarComponent,
+    ItemBreadcrumbsComponent
   ],
 
   imports: [
