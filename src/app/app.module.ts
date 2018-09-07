@@ -30,6 +30,7 @@ import { ItemProgressBarComponent } from './components/item-progress-bar/item-pr
 import { ItemDeleteButtonComponent } from './components/item-delete-button/item-delete-button.component';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
 import { ItemBreadcrumbsComponent } from './components/item-breadcrumbs/item-breadcrumbs.component';
+import { NewReleaseAlertComponent } from './components/new-release-alert/new-release-alert.component';
 
 // Globally Provided Services
 import { UserService } from './services/user.service';
@@ -61,7 +62,8 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
     ItemProgressBarComponent,
     ItemDeleteButtonComponent,
     LoadingBarComponent,
-    ItemBreadcrumbsComponent
+    ItemBreadcrumbsComponent,
+    NewReleaseAlertComponent
   ],
 
   imports: [

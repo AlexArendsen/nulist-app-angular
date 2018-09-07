@@ -1,0 +1,7 @@
+<div class="alert alert-success p-3" *ngIf="urlsDiffer && !dismissed">
+  <i class="fas fa-times float-right" (click)="dismissed = true"></i>
+
+  A new release of {{ meta.appName }} is availble!
+  <a [href]="meta.appUrl">Click here to check it out</a>!
+
+</div>
