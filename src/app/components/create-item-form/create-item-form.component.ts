@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 
-import { finalize } from 'rxjs/operators';
+import { finalize, filter } from 'rxjs/operators';
 
 import { Item } from '../../models/item.model';
 import { ItemService } from '../../services/item.service';
@@ -10,17 +10,25 @@ import { ItemService } from '../../services/item.service';
   templateUrl: './create-item-form.component.html',
   styleUrls: ['./create-item-form.component.css']
 })
-export class CreateItemFormComponent implements OnInit {
+export class CreateItemFormComponent implements OnInit, OnChanges {
 
   @Input() parentId: string;
   model: Item = new Item();
   creating = false;
+  placeholderText = 'Create new item';
 
   constructor(
     private items: ItemService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { this.setPlaceholderText(); }
+  ngOnChanges(changes: SimpleChanges) { this.setPlaceholderText(); }
+
+  setPlaceholderText() {
+    this.items.get(this.parentId).pipe(
+      filter(parent => !!parent && !!parent.title)
+    ).subscribe(parent => this.placeholderText = `Create new item under "${parent.title}"`);
+  }
 
   create() {
     this.creating = true;
