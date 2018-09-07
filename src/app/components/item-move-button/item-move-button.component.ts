@@ -15,6 +15,7 @@ import { Item } from '../../models/item.model';
 export class ItemMoveButtonComponent implements OnInit {
 
   @Input() source: Item;
+  @Input() disabled = false;
   moving = false;
 
   modal: BsModalRef;

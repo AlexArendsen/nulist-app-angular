@@ -40,9 +40,9 @@
                 <div class="col-12 col-md-6">
                     <div class="btn-toolbar float-right">
 
-                        <app-item-delete-button [item]="item">Delete</app-item-delete-button>
+                        <app-item-delete-button [item]="item" [disabled]="saving">Delete</app-item-delete-button>
 
-                        <app-item-move-button [source]="item">Move</app-item-move-button>
+                        <app-item-move-button [source]="item" [disabled]="saving">Move</app-item-move-button>
 
                         <div class="v-separator"></div>
 

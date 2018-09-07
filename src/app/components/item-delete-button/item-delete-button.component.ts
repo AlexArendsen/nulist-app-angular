@@ -15,6 +15,7 @@ import { NavigationService } from '../../services/navigation.service';
 export class ItemDeleteButtonComponent implements OnInit {
 
   @Input() item: Item;
+  @Input() disabled = false;
   deleting = false;
 
   modal: BsModalRef;

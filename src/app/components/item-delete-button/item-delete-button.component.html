@@ -1,7 +1,8 @@
 <button
   class="btn btn-default"
   type="button"
-  (click)="showDeleteModal(template)">
+  (click)="showDeleteModal(template)"
+  [disabled]="disabled">
   <ng-content></ng-content>
 </button>
 
