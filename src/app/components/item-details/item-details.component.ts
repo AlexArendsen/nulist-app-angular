@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { finalize } from 'rxjs/operators';
+import { merge as ObservableMerge } from 'rxjs';
+import { finalize, filter } from 'rxjs/operators';
 
 import { ItemService } from '../../services/item.service';
 import { ItemVM } from '../../models/item.model';
@@ -23,7 +24,12 @@ export class ItemDetailsComponent implements OnInit, OnChanges {
     private navigate: NavigationService
   ) { }
 
-  ngOnInit() { this.load(); }
+  ngOnInit() {
+    this.load();
+    ObservableMerge(this.items.checked, this.items.unchecked, this.items.created).pipe(
+      filter(i => i.parent_id == this.item._id)
+    ).subscribe(i => this.load());
+  }
 
   load() { this.items.get(this.itemId)
     .subscribe(model => this.item = new ItemVM(model)); }
