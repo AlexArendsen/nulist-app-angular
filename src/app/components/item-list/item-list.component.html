@@ -2,13 +2,14 @@
 
 <div class="card p-2 mb-2" *ngFor="let c of children">
 
-  <div class="row">
+  <div class="row" [class.saving]="c.saving">
 
     <div class="col-1 checkbox-column">
       <input type="checkbox" [(ngModel)]="c.checked" (click)="saveCheck(c)" />
     </div>
   
     <div class="col-lg-8 col-md-8 col-sm-9 col-9 clickable" (click)="gotoItem(c)">
+      <i class="fas fa-sync fa-spin mr-3" *ngIf="c.saving"></i>
       <strong class="mr-2">{{ c.title }}</strong>
       <div class="d-inline-block">
         <span class="mr-2 text-muted" *ngIf="c.children && c.children.length">{{ c.children.length }} {{ c.children.length == 1 ? 'child' : 'children' }}</span>

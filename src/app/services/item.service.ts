@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, of as ObservableOf, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, of as ObservableOf, merge as ObservableMerge, BehaviorSubject, Subject } from 'rxjs';
 
 import { Item, ItemVM } from '../models/item.model';
 import { UserService } from './user.service';
-import { filter, map, tap, mergeMap } from 'rxjs/operators';
+import { filter, map, tap, mergeMap, finalize } from 'rxjs/operators';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -18,11 +18,20 @@ export class ItemService {
   public loading: BehaviorSubject<boolean> = new BehaviorSubject(true);
   private lastUsedToken: string;
 
+  public creating: Subject<ItemVM> = new Subject();
   public created: Subject<ItemVM> = new Subject();
+
+  public updating: Subject<ItemVM> = new Subject();
   public updated: Subject<ItemVM> = new Subject();
+
   public deleted: Subject<ItemVM> = new Subject();
+
+  public checking: Subject<ItemVM> = new Subject();
   public checked: Subject<ItemVM> = new Subject();
+
+  public unchecking: Subject<ItemVM> = new Subject();
   public unchecked: Subject<ItemVM> = new Subject();
+
   public moved: Subject<ItemVM> = new Subject();
 
   constructor(
@@ -32,11 +41,7 @@ export class ItemService {
   ) {
     this.users.token.subscribe(token => this.load(token));
 
-    this.created.subscribe(i => {
-      this.items.push(i);
-      this.connectParentsWithChildren();
-      this.calculateItemPercentages(true);
-    });
+    this.created.subscribe(i => { });
 
     this.updated.pipe(
       map(i => ({updated: i, existing: this.items.find(t => t._id == i._id)}))
@@ -49,8 +54,12 @@ export class ItemService {
       this.calculateItemPercentages(true);
     });
 
+    ObservableMerge(this.updating, this.checking, this.unchecking).subscribe(i => this.lockItem(i._id));
+    ObservableMerge(this.updated,  this.checked,  this.unchecked, this.created).subscribe(i => this.unlockItem(i._id));
+
     this.checked.subscribe(i => this.calculateItemPercentages(true));
     this.unchecked.subscribe(i => this.calculateItemPercentages(true));
+
     this.moved.subscribe(i => this.reload());
   }
 
@@ -69,7 +78,7 @@ export class ItemService {
   private connectParentsWithChildren() {
     // Pair children with their parents
     // TODO -- Do this with IxJS' GroupBy
-    this.items.forEach(i => i.children = this.items.filter(t => t.parent_id == i._id));
+    this.items.filter(i => !!i._id).forEach(i => i.children = this.items.filter(t => t.parent_id == i._id));
   }
 
   private calculateItemPercentages(force = false) {
@@ -87,6 +96,15 @@ export class ItemService {
 
     this.items.filter(i => !i.parent_id).forEach(setPercentage);
   }
+
+  private lockItem(id: string) {
+    this.get(id).subscribe(i => i.saving = true);
+  }
+
+  private unlockItem(id: string) {
+    this.get(id).subscribe(i => i.saving = false);
+  }
+
 
   get(id: string): Observable<ItemVM> {
     return this.loading.pipe(
@@ -110,13 +128,28 @@ export class ItemService {
       this.error.shout('Could not create item', 'Item title may not be empty');
       return ObservableOf(null);
     } else {
+
+      const vm = new ItemVM(model); vm.saving = true;
+      const mergeItem = (i: Item) => { Object.assign(vm, i); };
+      const addItem = (i) => {
+        console.log("Pushing Item", i);
+        this.items.push(i);
+        this.connectParentsWithChildren();
+        this.calculateItemPercentages(true);
+      }
+
+      addItem(vm);
+      this.creating.next(vm);
       return this.http.post<Item>('/item', model).pipe(
+        tap(mergeItem),
         tap(i => this.created.next(new ItemVM(i)))
       );
     }
   }
 
   update(model: Item): Observable<ItemVM> {
+    this.updating.next(<ItemVM>model);
+
     return this.http.put<Item>('/item', {
       title: model.title, description: model.description, _id: model._id
     }).pipe(
@@ -126,12 +159,16 @@ export class ItemService {
   }
 
   check(id: string): Observable<Item> {
+    this.get(id).subscribe(i => this.checking.next(i));
+
     return this.http.put<Item>(`/item/${id}/check`, {}).pipe(
       tap(i => this.checked.next(new ItemVM(i)))
     );
   }
 
   uncheck(id: string): Observable<Item> {
+    this.get(id).subscribe(i => this.unchecking.next(i));
+
     return this.http.put<Item>(`/item/${id}/uncheck`, {}).pipe(
       tap(i => this.unchecked.next(new ItemVM(i)))
     );

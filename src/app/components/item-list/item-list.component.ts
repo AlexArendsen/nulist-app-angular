@@ -22,7 +22,7 @@ export class ItemListComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.items.created.pipe(
+    this.items.creating.pipe(
       filter(i => i.parent_id == this.parentId)
     ).subscribe(i => this.children.push(i));
 
