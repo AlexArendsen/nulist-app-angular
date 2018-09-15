@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
+
+import { Metadata } from '../../models/metadata.model';
+import { MetadataService } from '../../services/metadata.service';
 
 @Component({
   selector: 'app-site-footer',
@@ -8,14 +10,14 @@ import { UserService } from '../../services/user.service';
 })
 export class SiteFooterComponent implements OnInit {
 
-  isAuthenticated = false;
+  meta: Metadata;
 
   constructor(
-    private users: UserService
+    private metadata: MetadataService
   ) { }
 
   ngOnInit() {
-    this.users.token.subscribe(token => this.isAuthenticated = !!token);
+    this.metadata.get().subscribe(md => this.meta = md);
   }
 
 }

@@ -5,7 +5,7 @@
         class="navbar-brand"
         href="javascript:void(0)"
         (click)="toRoot()"
-      >NuList</a>
+      >{{ meta ? meta.appName : 'Loading' }}</a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" *ngIf="user">
         <span class="navbar-toggler-icon"></span>

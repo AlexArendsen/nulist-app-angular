@@ -3,16 +3,8 @@
     <div class="row">
 
       <div class="col-12 col-sm-6">
-        <h3>NuList</h3>
+        <h3>{{ meta ? meta.appName : 'Loading...' }}</h3>
         <p>Recursive list keeping</p>
-      </div>
-
-      <div class="col-12 col-sm-6" *ngIf="isAuthenticated">
-        Debug Navigation
-        <ul>
-          <li><a [routerLink]="['/items']">Items View</a></li>
-          <li><a [routerLink]="['/outline']">Outline View</a></li>
-        </ul>
       </div>
 
     </div>
