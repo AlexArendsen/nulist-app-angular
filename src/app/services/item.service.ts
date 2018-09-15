@@ -132,7 +132,6 @@ export class ItemService {
       const vm = new ItemVM(model); vm.saving = true;
       const mergeItem = (i: Item) => { Object.assign(vm, i); };
       const addItem = (i) => {
-        console.log("Pushing Item", i);
         this.items.push(i);
         this.connectParentsWithChildren();
         this.calculateItemPercentages(true);
