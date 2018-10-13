@@ -44,7 +44,7 @@ export class ItemDetailsComponent implements OnInit, OnChanges {
     this.saving = true;
     this.items.update(this.item).pipe(
       finalize(() => this.saving = false)
-    ).subscribe(item => this.item = item);
+    ).subscribe(item => {});
   }
 
 }
