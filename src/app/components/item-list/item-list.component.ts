@@ -26,6 +26,10 @@ export class ItemListComponent implements OnInit, OnChanges {
       filter(i => i.parent_id == this.parentId)
     ).subscribe(i => this.children.push(i));
 
+    this.items.deleted.pipe(
+      filter(i => i.parent_id == this.parentId)
+    ).subscribe(i => this.load());
+
     this.items.loading.subscribe(l => this.loading = l);
 
     this.load();

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
-import { finalize } from 'rxjs/operators';
+import { finalize, filter } from 'rxjs/operators';
 
 import { Item } from '../../models/item.model';
 import { ItemService } from '../../services/item.service';
@@ -38,15 +38,21 @@ export class ItemDeleteButtonComponent implements OnInit {
 
   doDelete() {
     this.deleting = true;
+    const toDelete = Object.assign(this.item);
 
     const onSuccess = () => {
       this.deleting = false;
       this.hideDeleteModal();
-      if (this.item.parent_id) this.navigate.toItem(this.item.parent_id);
-      else this.navigate.toRoot();
+
+      // Only navigate up after delete if we're still looking at the to-be-deleted item.
+      this.navigate.selectedItem.subscribe(selected => {
+        if (selected == null || toDelete._id != selected._id) return;
+        else if (toDelete.parent_id) this.navigate.toItem(toDelete.parent_id);
+        else this.navigate.toRoot();
+      });
     }
 
-    this.items.delete(this.item._id).pipe(
+    this.items.delete(toDelete._id).pipe(
       finalize(onSuccess)
     ).subscribe(x => {});
   }
