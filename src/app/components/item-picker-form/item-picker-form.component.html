@@ -5,7 +5,8 @@
 </app-item-picker-item>
 
 <div class="btn-toolbar float-right">
-    <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+    <button class="btn btn-default mr-1" type="button" (click)="onCancel()" *ngIf="showCancel">Cancel</button>
+    <button class="btn btn-primary" type="submit" (click)="onSubmit()" *ngIf="showSubmit">Submit</button>
 </div>
 
 <p>
