@@ -24,6 +24,7 @@ export class ItemService {
   public updating: Subject<ItemVM> = new Subject();
   public updated: Subject<ItemVM> = new Subject();
 
+  public deleting: Subject<ItemVM> = new Subject();
   public deleted: Subject<ItemVM> = new Subject();
 
   public checking: Subject<ItemVM> = new Subject();
@@ -54,7 +55,7 @@ export class ItemService {
       this.calculateItemPercentages(true);
     });
 
-    ObservableMerge(this.updating, this.checking, this.unchecking).subscribe(i => this.lockItem(i._id));
+    ObservableMerge(this.updating, this.checking, this.unchecking, this.deleting).subscribe(i => this.lockItem(i._id));
     ObservableMerge(this.updated,  this.checked,  this.unchecked, this.created).subscribe(i => this.unlockItem(i._id));
 
     this.checked.subscribe(i => this.calculateItemPercentages(true));
@@ -179,6 +180,8 @@ export class ItemService {
   }
 
   delete(id: string): Observable<Item> {
+    this.get(id).subscribe(i => this.deleting.next(i));
+
     return this.http.delete<Item>(`/item/${id}`).pipe(
       tap(i => this.deleted.next(new ItemVM(i)))
     );
