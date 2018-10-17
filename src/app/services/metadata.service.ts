@@ -18,4 +18,11 @@ export class MetadataService {
     return this.http.get<Metadata>('/meta');
   }
 
+  isCurrentRelease(url: string) {
+    const getHost = (url) =>
+      url.replace(/^(.+\:\/\/)?([^\/]+)\/?.*$/, '$2')
+
+    return getHost(window.location.href) != getHost(url);
+  }
+
 }

@@ -17,13 +17,16 @@ export class SiteFooterComponent implements OnInit {
   nItems: number = -1;
   nChecked: number = -1;
 
+  newReleaseAvailable: boolean;
+  newReleaseUrl: string;
+
   constructor(
     private metadata: MetadataService,
     private items: ItemService
   ) { }
 
   ngOnInit() {
-    this.metadata.get().subscribe(md => this.meta = md);
+    this.metadata.get().subscribe(md => this.setMetadata(md));
 
     ObservableMerge(
       this.items.created,
@@ -39,6 +42,13 @@ export class SiteFooterComponent implements OnInit {
       this.nItems = list.length;
       this.nChecked = list.filter(i => i.checked).length;
     })
+  }
+
+  setMetadata(md: Metadata) {
+    this.meta = md;
+
+    if(this.newReleaseAvailable = this.metadata.isCurrentRelease(md.appUrl))
+      this.newReleaseUrl = md.appUrl;
   }
 
 }

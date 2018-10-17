@@ -23,11 +23,7 @@ export class NewReleaseAlertComponent implements OnInit {
 
   setMeta(md: Metadata) {
     this.meta = md;
-
-    const getHost = (url) =>
-      url.replace(/^(.+\:\/\/)?([^\/]+)\/?.*$/, '$2')
-
-    this.urlsDiffer = getHost(window.location.href) != getHost(md.appUrl);
+    this.urlsDiffer = this.metadata.isCurrentRelease(md.appUrl);
   }
 
 }
