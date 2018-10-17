@@ -121,7 +121,12 @@ export class ItemService {
       ));
   }
 
-  getAll(): Observable<ItemVM[]> { return ObservableOf(this.items); }
+  getAll(): Observable<ItemVM[]> {
+    return this.loading.pipe(
+      filter(l => l == false),
+      map(x => this.items)
+    );
+  }
 
   create(model: Item): Observable<Item> {
     if (!model.title) {

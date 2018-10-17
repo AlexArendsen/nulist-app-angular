@@ -4,9 +4,15 @@
 
       <div class="col-12 col-sm-6">
         <h3>{{ meta ? meta.appName : 'Loading...' }}</h3>
-        <p>Recursive list keeping</p>
+        <p>Recursive List Keeping</p>
+        <p *ngIf="nItems >= 0; else loading">{{ nItems | number }} items / {{ nChecked | number }} completed</p>
       </div>
 
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <i class="fas fa-refresh fa-spin"></i>
+  Loading stats...
+</ng-template>
