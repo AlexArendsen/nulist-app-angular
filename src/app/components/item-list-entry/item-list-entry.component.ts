@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Item } from '../../models/item.model';
+import { ItemVM } from '../../models/item.model';
 import { ItemService } from '../../services/item.service';
 import { NavigationService } from '../../services/navigation.service';
 
@@ -11,7 +11,7 @@ import { NavigationService } from '../../services/navigation.service';
 })
 export class ItemListEntryComponent implements OnInit {
 
-  @Input() public item: Item;
+  @Input() public item: ItemVM;
 
   constructor(
     private itemService: ItemService,

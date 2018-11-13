@@ -20,9 +20,9 @@ export class ItemPickerFormComponent implements OnInit {
   @Output() cancel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private allItems: ItemVM[];
-  private topLevelItems: ItemVM[];
-  private recentItems: ItemVM[];
-  private selectedItem: Item;
+  public topLevelItems: ItemVM[];
+  public recentItems: ItemVM[];
+  public selectedItem: Item;
 
   showSubmit: boolean;
   showCancel: boolean;
