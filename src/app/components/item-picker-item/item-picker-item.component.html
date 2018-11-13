@@ -2,6 +2,7 @@
   <strong class="expander" (click)="toggleExpand()" [class.expanded]="expanded">▸</strong>
   <a href="javascript:void(0)" (click)="select(item)">{{ item.title }}</a>
   <span *ngIf="!expanded && item.children" class="ml-1">(+{{ item.children.length }})</span>
+  <i class="fas fa-check text-muted ml-2" *ngIf="item.checked"></i>
 </div>
 
 <div class="ml-3" *ngIf="expanded && item.children && item.children.length">
