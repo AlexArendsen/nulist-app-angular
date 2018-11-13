@@ -34,6 +34,9 @@ export class CreateItemFormComponent implements OnInit, OnChanges {
     this.model.parent_id = this.parentId;
     this.items.create(this.model).subscribe();
     this.model = new Item();
+
+    if (typeof(window) !== typeof(undefined))
+      window.document.getElementById('create-item-input-field').focus();
   }
 
 }

@@ -19,6 +19,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         const handleError = (e: HttpErrorResponse) => {
             switch(e.status) {
                 case 0:
+                case 200: { break; }
                 case 502:
                 case 503:
                 case 504: { this.error.shout('Service Disconnected', 'Connection to service has been lost.'); break; }

@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { LoginViewComponent } from './views/login-view/login-view.component';
 import { MainViewComponent } from './views/main-view/main-view.component';
 import { OutlineViewComponent } from './views/outline-view/outline-view.component';
+import { AdminAnalyticsViewComponent } from './views/admin-analytics-view/admin-analytics-view.component';
 
 // Components
 import { LoginFormComponent } from './components/login-form/login-form.component';
@@ -63,7 +64,8 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
     ItemDeleteButtonComponent,
     LoadingBarComponent,
     ItemBreadcrumbsComponent,
-    NewReleaseAlertComponent
+    NewReleaseAlertComponent,
+    AdminAnalyticsViewComponent
   ],
 
   imports: [

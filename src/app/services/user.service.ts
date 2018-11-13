@@ -52,6 +52,8 @@ export class UserService {
   
   me(): Observable<User> { return this.http.get<User>('/me'); }
 
+  count(): Observable<number> { return this.http.get<number>('/count'); }
+
   getToken(): string { return this.token.getValue(); }
 
 }

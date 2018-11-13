@@ -1,0 +1,22 @@
+<h3>Analytics</h3>
+
+<div class="row">
+
+  <div class="col-lg-4 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">Users</div>
+        <div class="card-text">
+          <span class="display-3">
+            <span *ngIf="nUsers > 0; else loadingStat">{{ nUsers }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #loadingStat>
+  <i class="fas fa-refresh fa-spin"></i>
+</ng-template>

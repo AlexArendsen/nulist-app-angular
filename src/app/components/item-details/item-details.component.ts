@@ -32,7 +32,7 @@ export class ItemDetailsComponent implements OnInit, OnChanges {
   }
 
   load() { this.items.get(this.itemId)
-    .subscribe(model => this.item = new ItemVM(model)); }
+    .subscribe(model => { this.item = new ItemVM(model); this.saving = model.saving; }); }
 
   ngOnChanges(changes: SimpleChanges) { this.load(); }
 
