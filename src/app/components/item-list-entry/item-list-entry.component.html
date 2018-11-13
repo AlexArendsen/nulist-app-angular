@@ -1,0 +1,28 @@
+<div class="card p-2 mb-2">
+
+  <div class="row" [class.saving]="item.saving">
+
+    <div class="col-1 checkbox-column">
+      <input type="checkbox" [(ngModel)]="item.checked" (click)="saveCheck()" />
+    </div>
+  
+    <div class="col-lg-8 col-md-8 col-sm-9 col-9 clickable" (click)="gotoItem()">
+      <i class="fas fa-sync fa-spin mr-3" *ngIf="item.saving"></i>
+      <strong class="mr-2">{{ item.title }}</strong>
+      <div class="d-inline-block">
+        <span class="mr-2 text-muted" *ngIf="item.children && item.children.length">{{ item.children.length }} {{ item.children.length == 1 ? 'child' : 'children' }}</span>
+      </div>
+
+      <div class="description">
+        <markdown *ngIf="item.description">{{ item.description }}</markdown>
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-12">
+      <app-item-progress-bar [item]="item"></app-item-progress-bar>
+    </div>
+
+  </div>
+
+</div>

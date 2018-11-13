@@ -43,6 +43,8 @@ import { NavigationService } from './services/navigation.service';
 import { AppRoutes } from './app.routes';
 import { OutgoingInterceptor } from './interceptors/outgoing.interceptors';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { DashboardViewComponent } from './views/dashboard-view/dashboard-view.component';
+import { ItemListEntryComponent } from './components/item-list-entry/item-list-entry.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
     LoadingBarComponent,
     ItemBreadcrumbsComponent,
     NewReleaseAlertComponent,
-    AdminAnalyticsViewComponent
+    AdminAnalyticsViewComponent,
+    DashboardViewComponent,
+    ItemListEntryComponent
   ],
 
   imports: [

@@ -1,21 +1,4 @@
-.checkbox-column {
-    text-align: right;
-}
-
-.clickable {
-    cursor: pointer;
-}
-
-.description {
-    max-height: 5.7rem;
-    overflow-y: hidden;
-}
-
 .no-children {
     text-align: center;
     font-size: larger;
-}
-
-.saving {
-    opacity: 0.4;
 }

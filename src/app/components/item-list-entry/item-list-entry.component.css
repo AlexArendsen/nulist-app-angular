@@ -1,0 +1,16 @@
+.clickable {
+    cursor: pointer;
+}
+
+.checkbox-column {
+    text-align: right;
+}
+
+.description {
+    max-height: 5.7rem;
+    overflow-y: hidden;
+}
+
+.saving {
+    opacity: 0.4;
+}

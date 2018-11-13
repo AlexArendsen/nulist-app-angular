@@ -41,15 +41,4 @@ export class ItemListComponent implements OnInit, OnChanges {
     this.load();
   }
 
-  saveCheck(child: Item) {
-    const obs = (child.checked)
-      ? this.items.uncheck(child._id)
-      : this.items.check(child._id);
-    obs.subscribe(x => {});
-  }
-
-  gotoItem(child: Item) {
-    if (child._id) this.navigate.toItem(child._id);
-  }
-
 }
