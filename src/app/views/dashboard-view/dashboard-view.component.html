@@ -2,13 +2,6 @@
 
 <app-item-breadcrumbs></app-item-breadcrumbs>
 
-<h4>Recent Items</h4>
-
-<app-item-list-entry *ngFor="let r of recentItems" [item]="r"></app-item-list-entry>
-
-<div class="bg-light p-3" *ngIf="!recentItems.length">No Recent Items</div>
-
-
 <h4 class="mt-4">All Items</h4>
 
 <div class="my-4">
@@ -16,3 +9,10 @@
 </div>
 
 <app-item-list [parentId]="null"></app-item-list>
+
+
+<h4 class="mt-4">Recent Items</h4>
+
+<app-item-list-entry *ngFor="let r of recentItems" [item]="r"></app-item-list-entry>
+
+<div class="bg-light p-3" *ngIf="!recentItems.length">No Recent Items</div>
