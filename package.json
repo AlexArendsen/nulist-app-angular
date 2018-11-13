@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --deploy-url='app-ng6/'",
+    "build-production": "ng build --deploy-url='app-ng6/' --prod",
     "watch": "ng build --watch --deploy-url='app-ng6/'",
     "test": "ng test",
     "lint": "ng lint",
