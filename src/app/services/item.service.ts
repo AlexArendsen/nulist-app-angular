@@ -188,7 +188,8 @@ export class ItemService {
   }
 
   move(subject: Item, newParent: Item): Observable<Item> {
-    return this.http.put<Item>('/item', { _id: subject._id, parent_id: newParent._id }).pipe(
+    const newParentId = newParent ? newParent._id : null ;
+    return this.http.put<Item>('/item', { _id: subject._id, parent_id: newParentId }).pipe(
       tap(item => this.moved.next(new ItemVM(item)))
     );
   }
