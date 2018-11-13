@@ -49,7 +49,7 @@ export class ItemListComponent implements OnInit, OnChanges {
   }
 
   gotoItem(child: Item) {
-    this.navigate.toItem(child._id);
+    if (child._id) this.navigate.toItem(child._id);
   }
 
 }
