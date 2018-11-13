@@ -6,9 +6,13 @@
       [class.active]="!selected">
       <a
         href="javascript:void(0)"
-        (click)="toRoot()">
-        Root
+        (click)="toRoot()"
+        *ngIf="!!selected">
+        <i class="fas fa-home"></i>
       </a>
+      <span *ngIf="!selected">
+        <i class="fas fa-home"></i>&ensp;Root
+      </span>
     </li>
     
     <li
