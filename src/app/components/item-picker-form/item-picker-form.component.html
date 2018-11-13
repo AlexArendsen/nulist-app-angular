@@ -1,8 +1,26 @@
-<app-item-picker-item
-    *ngFor="let i of topLevelItems"
-    [item]="i"
-    (pick)="onSelect($event)">
-</app-item-picker-item>
+<div class="mb-3">
+
+    <strong>Recent Items</strong>
+
+    <app-item-picker-item
+        *ngFor="let r of recentItems"
+        [item]="r"
+        (pick)="onSelect($event)">
+    </app-item-picker-item>
+
+</div>
+
+<div class="mb-3">
+
+    <strong>All Items</strong>
+
+    <app-item-picker-item
+        *ngFor="let i of topLevelItems"
+        [item]="i"
+        (pick)="onSelect($event)">
+    </app-item-picker-item>
+
+</div>
 
 <div class="btn-toolbar float-right">
     <button class="btn btn-default mr-1" type="button" (click)="onCancel()" *ngIf="showCancel">Cancel</button>

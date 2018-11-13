@@ -45,6 +45,7 @@ import { OutgoingInterceptor } from './interceptors/outgoing.interceptors';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { DashboardViewComponent } from './views/dashboard-view/dashboard-view.component';
 import { ItemListEntryComponent } from './components/item-list-entry/item-list-entry.component';
+import { RecentItemService } from './services/recent-item.service';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { ItemListEntryComponent } from './components/item-list-entry/item-list-e
     ItemService,
     ErrorService,
     NavigationService,
+    RecentItemService,
     { provide : HTTP_INTERCEPTORS, useClass: OutgoingInterceptor, multi: true, },
     { provide : HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true, },
   ],
