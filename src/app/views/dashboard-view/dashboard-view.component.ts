@@ -20,7 +20,7 @@ export class DashboardViewComponent implements OnInit {
 
   ngOnInit() {
     this.recentItemService.recent.pipe(
-      map(list => list.slice(0, 5))
+      map(list => list.slice(0, 15))
     ).subscribe(list => {
       this.recentItems = list
     })
