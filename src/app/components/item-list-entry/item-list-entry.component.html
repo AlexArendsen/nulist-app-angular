@@ -10,7 +10,10 @@
       <i class="fas fa-sync fa-spin mr-3" *ngIf="item.saving"></i>
       <strong class="mr-2">{{ item.title }}</strong>
       <div class="d-inline-block">
-        <span class="mr-2 text-muted" *ngIf="item.children && item.children.length">{{ item.children.length }} {{ item.children.length == 1 ? 'child' : 'children' }}</span>
+        <span class="mr-2 text-muted" *ngIf="item.children && item.children.length">
+          {{ item.children.length | number }} {{ item.children.length == 1 ? 'child' : 'children' }}
+          <small>({{ item.completedDescendants | number }}/{{ item.descendants | number }})</small>
+        </span>
       </div>
 
       <div class="description">

@@ -46,20 +46,20 @@ export class ItemService {
 
     this.updated.pipe(
       map(i => ({updated: i, existing: this.items.find(t => t._id == i._id)}))
-    ).subscribe(pair => { Object.assign(pair.existing, pair.updated); this.calculateItemPercentages(true)});
+    ).subscribe(pair => { Object.assign(pair.existing, pair.updated); this.calculateItemDescendantsAndCompleted(true)});
 
     this.deleted.subscribe(async deleted => {
       const index = this.items.findIndex(i => i._id == deleted._id);
       this.items.splice(index, 1);
       this.connectParentsWithChildren();
-      this.calculateItemPercentages(true);
+      this.calculateItemDescendantsAndCompleted(true);
     });
 
     ObservableMerge(this.updating, this.checking, this.unchecking, this.deleting).subscribe(i => this.lockItem(i._id));
     ObservableMerge(this.updated,  this.checked,  this.unchecked, this.created).subscribe(i => this.unlockItem(i._id));
 
-    this.checked.subscribe(i => this.calculateItemPercentages(true));
-    this.unchecked.subscribe(i => this.calculateItemPercentages(true));
+    this.checked.subscribe(i => this.calculateItemDescendantsAndCompleted(true));
+    this.unchecked.subscribe(i => this.calculateItemDescendantsAndCompleted(true));
 
     this.moved.subscribe(i => this.reload());
   }
@@ -72,7 +72,7 @@ export class ItemService {
       this.items = list.map(i => new ItemVM(i));
       this.loading.next(false);
       this.connectParentsWithChildren();
-      this.calculateItemPercentages(true);
+      this.calculateItemDescendantsAndCompleted(true);
     });
   }
 
@@ -82,20 +82,40 @@ export class ItemService {
     this.items.filter(i => !!i._id).forEach(i => i.children = this.items.filter(t => t.parent_id == i._id));
   }
 
-  private calculateItemPercentages(force = false) {
-    const setPercentage = (i: ItemVM) => {
-      if (i.percent >= 0 && !force) return i.percent;
-      if (i.checked) return i.percent = 1;
-      if (!i.children || !i.children.length) return i.percent = 0;
+  private calculateItemDescendantsAndCompleted(force = false) {
 
-      // If none of these base cases are satisfied, then we take the composite completion
-      return i.percent = (
-        (i.children.map(setPercentage).reduce((sum, next) => sum + next))
-        /(i.children.length)
-      );
+    const sum = (list: number[]) => list.reduce((sum, next) => sum + next, 0);
+
+    const setDescendantsAndCompleted = (i: ItemVM) => {
+
+      // If this item has already had its descendants calculated, then we can assume it's memoized
+      // and move on. Ignore the memo if we are forcing a recalculation.
+      if (i.descendants >= 0 && !force) return;
+
+      // Base Case: If this item is a leaf (has no children), then we know both fields should be zero
+      if (!i.children || !i.children.length) return i.descendants = i.completedDescendants = 0;
+
+      // Recurse across the item's children. Once complete, all children will have the descendants
+      // and completedDescendants fields populated and ready to work with.
+      i.children.forEach(setDescendantsAndCompleted);
+
+      // Count this item's descendants. For each child:
+      //
+      //   * If the child item has descendants, use that number of descendants and do _not_ count the child as one
+      //   * If the child does not have descendants, count the child as one
+      //
+      // Doing it this way will prevent children with "100%" completion from contributing a deficit to their parent's
+      // completion percentage.
+      i.descendants = sum(i.children.map(x => (x.descendants || 1)));
+
+      // Counting the item's completed descendants is similar, for similar reasons.
+      // Additionally, if this parent item is checked, then we consider all descendants to be complete.
+      i.completedDescendants = i.checked
+        ? i.descendants : sum(i.children.map(x => (x.descendants ? x.completedDescendants : (x.checked ? 1 : 0 ))));
     }
 
-    this.items.filter(i => !i.parent_id).forEach(setPercentage);
+    // Run our helper function over all top-level items
+    this.items.filter(i => !i.parent_id).forEach(setDescendantsAndCompleted);
   }
 
   private lockItem(id: string) {
@@ -140,7 +160,7 @@ export class ItemService {
       const addItem = (i) => {
         this.items.push(i);
         this.connectParentsWithChildren();
-        this.calculateItemPercentages(true);
+        this.calculateItemDescendantsAndCompleted(true);
       }
 
       addItem(vm);
