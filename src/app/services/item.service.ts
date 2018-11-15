@@ -133,6 +133,14 @@ export class ItemService {
     );
   }
 
+  getMany(ids: string[]): Observable<ItemVM[]> {
+    return this.loading.pipe(
+      filter(l => l == false),
+      map(x => this.items.filter(i => ids.includes(i._id))),
+      filter(i => !!i)
+    );
+  }
+
   getChildren(id: string): Observable<Item[]> {
     return this.loading.pipe(
       filter(l => l == false),

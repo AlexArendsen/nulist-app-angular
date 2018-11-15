@@ -37,12 +37,18 @@ export class RecentItemService {
       filter(item => !!item)
     ).subscribe(item => this.push(item));
 
+    this.itemService.deleted.subscribe(x => this.purge());
 
   }
 
   private push(item: ItemVM) {
     this._recent = [item, ...this._recent.filter(i => i._id !== item._id).slice(0, this.BUFFER_SIZE - 1)];
     this.recent.next(this._recent);
+  }
+
+  private purge() {
+    this.itemService.getMany(this._recent.map(r => r._id))
+      .subscribe(found => this.recent.next(this._recent = found));
   }
 
 }
