@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './services/user.service';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { RecentItemService } from './services/recent-item.service';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     private users: UserService,
-    private router: Router
+    private router: Router,
+    private recentItems: RecentItemService
   ) {
-
   }
 
   ngOnInit() {
