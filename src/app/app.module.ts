@@ -46,6 +46,7 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { DashboardViewComponent } from './views/dashboard-view/dashboard-view.component';
 import { ItemListEntryComponent } from './components/item-list-entry/item-list-entry.component';
 import { RecentItemService } from './services/recent-item.service';
+import { SearchResultsViewComponent } from './views/search-results-view/search-results-view.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { RecentItemService } from './services/recent-item.service';
     NewReleaseAlertComponent,
     AdminAnalyticsViewComponent,
     DashboardViewComponent,
-    ItemListEntryComponent
+    ItemListEntryComponent,
+    SearchResultsViewComponent
   ],
 
   imports: [

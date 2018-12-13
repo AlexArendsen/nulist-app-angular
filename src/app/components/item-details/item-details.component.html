@@ -34,6 +34,7 @@
                 <div class="col-12 col-md-6">
                     <div class="mb-2">
                         <app-item-progress-bar [item]="item"></app-item-progress-bar>
+                        <span *ngIf="item.created_at" class="text-muted">Created {{ item.created_at | date:'medium' }} ({{ item.timeAgoCreatedLong }} ago)</span>
                     </div>
                 </div>
 

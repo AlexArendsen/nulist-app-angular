@@ -8,6 +8,7 @@
   
     <div class="col-lg-8 col-md-8 col-sm-9 col-9 clickable" (click)="gotoItem()">
       <i class="fas fa-sync fa-spin mr-3" *ngIf="item.saving"></i>
+      <span class="float-right text-muted">{{ item.timeAgoCreatedShort }}</span>
       <strong class="mr-2">{{ item.title }}</strong>
       <div class="d-inline-block">
         <span class="mr-2 text-muted" *ngIf="item.children && item.children.length">

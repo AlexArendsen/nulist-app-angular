@@ -24,6 +24,7 @@
     "@angular/router": "^6.1.0",
     "angular2-toaster": "^6.1.0",
     "core-js": "^2.5.4",
+    "date-fns": "^1.29.0",
     "ngx-bootstrap": "^3.0.1",
     "ngx-markdown": "^6.2.0",
     "rxjs": "^6.0.0",
